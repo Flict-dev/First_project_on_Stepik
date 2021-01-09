@@ -12,7 +12,11 @@ class MainView(View):
             'tours': tours,
             'depatures': depatures,
         }
-        return render(request, 'main_page/index.html', context=context)
+        return render(
+            request,
+            'main_page/index.html',
+            context=context
+        )
 
 
 class DepatureView(View):
@@ -45,7 +49,11 @@ class DepatureView(View):
             'min_price': min_price,
             'max_price': max_price,
         }
-        return render(request, 'depature/depature.html', context=context)
+        return render(
+            request,
+            'depature/depature.html',
+            context=context
+        )
 
 
 class TourView(View):
@@ -61,4 +69,8 @@ class TourView(View):
             'tour_stars': range(tour.stars),
 
         }
-        return render(request, 'detail_tour/tour.html', context=context)
+        return render(
+            request,
+            'detail_tour/tour.html',
+            context=context
+        )
