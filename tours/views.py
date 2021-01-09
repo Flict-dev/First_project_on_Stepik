@@ -5,7 +5,7 @@ from .models import Depature, Tour
 
 class MainView(View):
     def get(self, request):
-        tours = Tour.objects.order_by("name")
+        tours = Tour.objects.reverse()[:6]
         depatures = Depature.objects.all()
         context = {
             'title': 'Stepik Travel',
