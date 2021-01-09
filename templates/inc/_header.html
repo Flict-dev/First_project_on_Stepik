@@ -1,0 +1,19 @@
+<header class="container mt-3">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{% url 'home' %}">Stepik Travel</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            {% for depature in depatures %}
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link {% if request.path == depature.get_absolute_url %}active{% endif %}"
+                       href="{{ depature.get_absolute_url }}">Из {{ depature.name }}</a>
+                </li>
+            </ul>
+            {% endfor %}
+        </div>
+    </nav>
+</header>

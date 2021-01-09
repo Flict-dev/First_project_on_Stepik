@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}
+{{ title }}
+{% endblock %}
+{% block content %}
+<main class="container mt-3">
+    <h1 class="display-5 mt-4">Летим из {{ loc_dep }}</h1>
+    <p class="mb-4">{% if all_tours == 1 %}
+        Найден 1 тур
+        {% else %}
+        Найдено {{ all_tours }}
+        {% if all_tours < 5 %}
+        турa,
+        {% else %}
+        туров,
+        {% endif %}
+        от {{ min_price }} до {{ max_price }} руб и от {{ min_duration }} до {{ max_duration }} ночей
+        {% endif %}
+        </p>
+
+</main>
+{% endblock %}
