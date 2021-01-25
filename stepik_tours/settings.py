@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'storages',
     'tours'
 ]
 
@@ -93,10 +94,21 @@ USE_L10N = True
 
 USE_TZ = True
 
-STATIC_URL = '/static/'
-STATIC_ROOT = 'static'
+
+AWS_ACCESS_KEY_ID = 'AKIAXVRV4FYX6YOSIZ4T'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'stepik-static'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_LOCATION = 'static'
+
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'tours/static')
+    os.path.join(BASE_DIR, 'tours/static'),
 ]
+STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = 'media'
