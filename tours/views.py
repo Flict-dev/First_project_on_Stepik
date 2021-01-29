@@ -21,29 +21,29 @@ class MainView(View):
 
 class DepatureView(View):
     def get(self, request, slug):
-        depatures = Depature.objects.all()
-        local_depature = Depature.objects.get(slug=slug)
-        tours = Tour.objects.filter(depature=local_depature.id).all()
         max_duration = 0
-        min_duration = 3000
+        min_duration = 30000
         max_price = 0
         min_price = 300000
-        all_tors = 0
+
+        depatures = Depature.objects.all()
+        local_depature = Depature.objects.get(slug=slug)
+        tours = Tour.objects.filter(depature=local_depature.id).order_by('name')
+        count_tours = Tour.objects.filter(depature=local_depature.id).count()
         for tour in tours:
-            all_tors += 1
             if tour.price < min_price:
                 min_price = tour.price
-            elif tour.price > max_price:
+            if tour.price > max_price:
                 max_price = tour.price
             if tour.duration > max_duration:
                 max_duration = tour.duration
-            elif tour.duration < min_duration:
+            if tour.duration < min_duration:
                 min_duration = tour.duration
         context = {
             'depatures': depatures,
             'tours': tours,
             'loc_dep': local_depature,
-            'all_tours': all_tors,
+            'count_tours': count_tours,
             'min_duration': min_duration,
             'max_duration': max_duration,
             'min_price': min_price,
