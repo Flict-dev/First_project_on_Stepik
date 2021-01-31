@@ -2,7 +2,7 @@ from django.db import models
 from django.urls import reverse
 
 
-class Depature(models.Model):
+class Departure(models.Model):
     name = models.CharField(
         max_length=200,
         verbose_name='Название пути'
@@ -22,7 +22,7 @@ class Depature(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('depature', kwargs={"slug": self.slug})
+        return reverse('departure', kwargs={"slug": self.slug})
 
 
 class Tour(models.Model):
@@ -34,8 +34,8 @@ class Tour(models.Model):
         max_length=3000,
         verbose_name='Описание тура'
     )
-    depature = models.ForeignKey(
-        Depature,
+    departure = models.ForeignKey(
+        Departure,
         on_delete=models.CASCADE,
         verbose_name='Название пути',
         blank=True,
@@ -80,4 +80,4 @@ class Tour(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('tour_detail', args=[str(self.id)])
+        return reverse('tour_detail', args=[str(self.pk)])

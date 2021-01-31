@@ -7,7 +7,7 @@
     <section class="mt-3 pb-5">
         <h1 class="display-3 mt-4">{% for i in tour_stars %}★{% endfor %}</h1>
         <p class="lead">В отпрвавитесь в тёплую страну - {{ tour.country }}, в отель - {{ tour.name }} Из
-            {{ tour.depature.name }} на {{ tour.duration }} ночей.</p>
+            {{ tour.departure.name }} на {{ tour.duration }} ночей.</p>
         <p class="lead"> Датв отправки - {{ tour.date }}</p>
         <img src="{{ tour.image.url }}"
              class="w-75" alt="img">
