@@ -1,3 +1,4 @@
+from django.db.models import Max, Min
 from django.shortcuts import render
 from django.views.generic import View
 from .models import Departure, Tour
@@ -21,24 +22,19 @@ class MainView(View):
 
 class DepartureView(View):
     def get(self, request, slug):
-        max_duration = 0
-        min_duration = 30000
-        max_price = 0
-        min_price = 300000
-
         departures = Departure.objects.all()
         local_departure = Departure.objects.get(slug=slug)
         tours = Tour.objects.filter(departure=local_departure.id).order_by('name')
         count_tours = tours.count()
-        for tour in tours:
-            if tour.price < min_price:
-                min_price = tour.price
-            if tour.price > max_price:
-                max_price = tour.price
-            if tour.duration > max_duration:
-                max_duration = tour.duration
-            if tour.duration < min_duration:
-                min_duration = tour.duration
+        max_price = Tour.objects.filter(departure=local_departure.id).\
+            aggregate(m_price=Max('price'))['m_price']
+        min_price = Tour.objects.filter(departure=local_departure.id).\
+            aggregate(m_price=Min('price'))['m_price']
+        max_duration = Tour.objects.filter(departure=local_departure.id).\
+            aggregate(duration=Max('duration'))['duration']
+        min_duration = Tour.objects.filter(departure=local_departure.id).\
+            aggregate(duration=Min('duration'))['duration']
+
         context = {
             'departures': departures,
             'tours': tours,
