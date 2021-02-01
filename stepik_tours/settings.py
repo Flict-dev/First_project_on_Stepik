@@ -17,7 +17,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'r_rw0u67q(8uad*a!l_^0*yzvyp(m(5838&wp5b#(4im_z8n)='
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -109,7 +109,7 @@ STATICFILES_DIRS = [
 ]
 STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-DEFAULT_FILE_STORAGE = 'storage_backends.py'
+DEFAULT_FILE_STORAGE = 'stepik_tours.storage_backends.MediaStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = 'media'
