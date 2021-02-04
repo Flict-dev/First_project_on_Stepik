@@ -2,15 +2,17 @@ from django.db.models import Max, Min
 from django.shortcuts import render
 from django.views.generic import View
 from .models import Departure, Tour
+import random
 
 
 class MainView(View):
     def get(self, request):
-        tours = Tour.objects.reverse()[:6]
+        tours = Tour.objects.all()
+        random_tours = (random.sample(list(tours), 6))
         departures = Departure.objects.all()
         context = {
             'title': 'Stepik Travel',
-            'tours': tours,
+            'tours': random_tours,
             'departures': departures,
         }
         return render(
@@ -26,13 +28,13 @@ class DepartureView(View):
         local_departure = Departure.objects.get(slug=slug)
         tours = Tour.objects.filter(departure=local_departure.id).order_by('name')
         count_tours = tours.count()
-        max_price = Tour.objects.filter(departure=local_departure.id).\
+        max_price = Tour.objects.filter(departure=local_departure.id). \
             aggregate(m_price=Max('price'))['m_price']
-        min_price = Tour.objects.filter(departure=local_departure.id).\
+        min_price = Tour.objects.filter(departure=local_departure.id). \
             aggregate(m_price=Min('price'))['m_price']
-        max_duration = Tour.objects.filter(departure=local_departure.id).\
+        max_duration = Tour.objects.filter(departure=local_departure.id). \
             aggregate(duration=Max('duration'))['duration']
-        min_duration = Tour.objects.filter(departure=local_departure.id).\
+        min_duration = Tour.objects.filter(departure=local_departure.id). \
             aggregate(duration=Min('duration'))['duration']
 
         context = {
