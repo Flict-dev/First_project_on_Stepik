@@ -3,6 +3,6 @@ from .views import MainView, DepartureView, TourView
 
 urlpatterns = [
     path('', MainView.as_view(), name='home'),
-    path('depature/<str:slug>/', DepartureView.as_view(), name='departure'),
+    path('departure/<str:slug>/', DepartureView.as_view(), name='departure'),
     path('tour/<int:pk>/', TourView.as_view(), name='tour_detail'),
 ]
